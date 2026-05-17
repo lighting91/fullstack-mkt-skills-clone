@@ -18,6 +18,10 @@ package-lock.json
 outputs/
 *.output.md
 
+# Intermediate build files (PDF generation)
+*.html
+*.docx
+
 # Environment
 .env
 .env.local
