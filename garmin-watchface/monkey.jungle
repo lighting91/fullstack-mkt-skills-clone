@@ -1,0 +1,10 @@
+# StealthWealth — Garmin Forerunner 965 Watch Face
+# Build with: connectiq build monkey.jungle --device fr965
+
+project.manifest = manifest.xml
+
+base.sourcePath  = source
+base.resourcePath = resources
+
+fr965.sourcePath  = source
+fr965.resourcePath = resources
