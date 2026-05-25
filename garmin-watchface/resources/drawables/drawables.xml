@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<drawables>
+  <!--
+    No background image — pure AMOLED black via code.
+    Add a custom font file here to replace system fonts:
+
+    <font id="TimeFont"  filename="../fonts/GeistThin-Numbers.fnt" antialias="true"/>
+    <font id="LabelFont" filename="../fonts/GeistThin.fnt"         antialias="true"/>
+
+    Then reference in StealthWealthView.mc:
+      var _timeFont  = Ui.loadResource(Rez.Fonts.TimeFont);
+      var _labelFont = Ui.loadResource(Rez.Fonts.LabelFont);
+  -->
+</drawables>

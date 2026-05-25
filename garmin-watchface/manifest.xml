@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<iq:manifest xmlns:iq="com.garmin.connectiq" version="3">
+  <iq:application
+    entry="StealthWealthApp"
+    id="f2a71c3d-8b4e-4a2c-9d1f-965000000001"
+    launchLabel="Stealth Wealth"
+    minApiLevel="4.2.0"
+    name="@Strings.AppName"
+    type="watchFace"
+    version="1.0.0">
+
+    <iq:products>
+      <!-- Garmin Forerunner 965 — 454×454 AMOLED -->
+      <iq:product id="fr965"/>
+    </iq:products>
+
+    <iq:permissions>
+      <iq:uses-permission id="com.garmin.connectiq.permission.FIT_HISTORY"/>
+      <iq:uses-permission id="com.garmin.connectiq.permission.SENSOR_HISTORY"/>
+    </iq:permissions>
+
+    <iq:languages>
+      <iq:language>eng</iq:language>
+    </iq:languages>
+
+  </iq:application>
+</iq:manifest>
