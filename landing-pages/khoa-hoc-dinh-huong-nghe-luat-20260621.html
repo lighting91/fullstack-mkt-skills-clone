@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giải Mã Nghề Luật — Định Hướng Việc Làm Cho Sinh Viên Luật | Luật Sư Kim</title>
+<meta name="description" content="Khóa học GIẢI MÃ NGHỀ LUẬT cùng Luật sư Kim — 12 năm kinh nghiệm tư vấn pháp luật & tranh tụng — giúp sinh viên luật sắp ra trường, mới ra trường chọn đúng nhóm nghề, tự tin xin việc đúng ngành. Ưu đãi 999.000đ.">
+<meta property="og:title" content="Giải Mã Nghề Luật — Định Hướng Việc Làm Cho Sinh Viên Luật">
+<meta property="og:description" content="Lộ trình định hướng nghề luật cùng Luật sư Kim — 12 năm kinh nghiệm tranh tụng & tư vấn pháp luật. Ưu đãi ra mắt chỉ 999.000đ.">
+<meta property="og:image" content="https://via.placeholder.com/1200x630/111111/C8102E?text=GIAI+MA+NGHE+LUAT">
+<meta property="og:type" content="website">
+<meta name="robots" content="noindex, nofollow">
+
+<!-- ============================================================
+  GHI CHÚ KỸ THUẬT CHO NGƯỜI TRIỂN KHAI:
+  1. Form đăng ký (Bước 16) hiện chỉ demo bằng JS, CHƯA nối backend.
+     Cần nối vào Google Sheets / CRM / webhook Zalo OA trước khi chạy ads.
+  2. Cần chèn Meta Pixel + GA4 + TikTok Pixel (nếu chạy TikTok Ads)
+     vào vị trí đánh dấu "PIXEL/GA4" phía dưới trong <head> và trước </body>.
+  3. Các nội dung trong dấu [ ... ] là PLACEHOLDER — thay bằng dữ liệu
+     thật (SĐT, Zalo, số liệu học viên, testimonial thật, ngày khai giảng)
+     trước khi public, để tránh vi phạm nguyên tắc "không bằng chứng giả".
+============================================================ -->
+
+<!-- PIXEL/GA4: chèn Meta Pixel / Google Tag Manager tại đây -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --red:#C8102E;
+    --red-dark:#8E0E20;
+    --black:#0E0E0E;
+    --black-soft:#1A1A1A;
+    --white:#FFFFFF;
+    --gray:#F4F3F1;
+    --gray-line:#E4E2DE;
+    --text:#2A2A2A;
+    --text-light:#6B6B6B;
+    --radius:14px;
+    --shadow:0 14px 34px rgba(0,0,0,.14);
+    --maxw:1140px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Be Vietnam Pro',-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    color:var(--text);
+    background:var(--white);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{
+    font-family:'Playfair Display',Georgia,serif;
+    margin:0 0 .5em;
+    line-height:1.2;
+    color:var(--black);
+  }
+  p{margin:0 0 1em; line-height:1.7;}
+  img{max-width:100%; display:block;}
+  a{color:inherit;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 20px;}
+  section{padding:64px 0;}
+  .section-tag{
+    display:inline-block; color:var(--red); font-weight:700; letter-spacing:.12em;
+    text-transform:uppercase; font-size:13px; margin-bottom:10px;
+  }
+  .center{text-align:center;}
+  .bg-black{background:var(--black); color:#EDEDED;}
+  .bg-black h2, .bg-black h3, .bg-black h4{color:var(--white);}
+  .bg-gray{background:var(--gray);}
+  .btn{
+    display:inline-block; font-weight:700; text-decoration:none; cursor:pointer;
+    border:none; border-radius:10px; padding:18px 32px; font-size:17px;
+    transition:transform .15s ease, box-shadow .15s ease;
+    font-family:'Be Vietnam Pro',sans-serif;
+  }
+  .btn:active{transform:scale(.97);}
+  .btn-primary{
+    background:var(--red); color:var(--white);
+    box-shadow:0 10px 24px rgba(200,16,46,.35);
+  }
+  .btn-primary:hover{background:var(--red-dark);}
+  .btn-block{width:100%; text-align:center;}
+  .btn-outline{
+    background:transparent; border:2px solid var(--white); color:var(--white);
+  }
+  .badge{
+    display:inline-flex; align-items:center; gap:6px;
+    background:var(--white); border:1px solid var(--gray-line);
+    border-radius:30px; padding:8px 14px; font-size:13px; font-weight:600;
+    color:var(--text);
+  }
+  .badge .dot{width:6px;height:6px;border-radius:50%;background:var(--red);}
+
+  /* ===== TOP URGENCY BAR ===== */
+  .topbar{
+    background:var(--black); color:var(--white); font-size:13px;
+    padding:9px 16px; text-align:center; position:sticky; top:0; z-index:60;
+    border-bottom:2px solid var(--red);
+  }
+  .topbar strong{color:#FF6B7A;}
+  .topbar #cd{font-weight:800; color:var(--white); background:var(--red); border-radius:6px; padding:2px 8px; margin-left:6px;}
+
+  /* ===== HERO (BƯỚC 1) ===== */
+  .hero{
+    background:linear-gradient(180deg,var(--black) 0%, var(--black-soft) 100%);
+    color:var(--white); padding:52px 0 64px; position:relative;
+  }
+  .hero::after{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:6px;
+    background:var(--red);
+  }
+  .hero-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:40px; align-items:center;}
+  .hero h1{color:var(--white); font-size:38px; margin-bottom:16px;}
+  .hero h1 span{color:var(--red);}
+  .hero .sub{color:#CFCFCF; font-size:17px; max-width:560px;}
+  .hero-badges{display:flex; flex-wrap:wrap; gap:10px; margin:22px 0 26px;}
+  .hero-badges .badge{background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.18); color:#EDEDED;}
+  .hero-visual{
+    background:var(--white); border-radius:var(--radius); padding:18px;
+    box-shadow:var(--shadow);
+  }
+  .hero-visual .imgbox{
+    aspect-ratio:4/5; border-radius:10px; background:
+      linear-gradient(160deg, var(--gray) 0%, #fff 60%);
+    border:2px dashed var(--gray-line);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--text-light); font-size:14px; text-align:center; padding:20px;
+  }
+  .hero-visual .price-tag{
+    margin-top:14px; background:var(--red); color:#fff; border-radius:10px;
+    padding:14px; text-align:center;
+  }
+  .hero-visual .price-tag .old{ text-decoration:line-through; opacity:.75; font-size:14px;}
+  .hero-visual .price-tag .new{ font-size:26px; font-weight:800;}
+
+  /* ===== PAIN (BƯỚC 2-3) ===== */
+  .pain-list{display:grid; gap:14px; margin-top:28px;}
+  .pain-item{
+    display:flex; gap:14px; background:var(--white); border:1px solid var(--gray-line);
+    border-left:4px solid var(--red); border-radius:10px; padding:16px 18px;
+  }
+  .pain-item .x{
+    flex:0 0 30px; height:30px; border-radius:50%; background:var(--red);
+    color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800;
+  }
+  .pain-item p{margin:0; color:var(--text);}
+  .agitate-box{
+    margin-top:32px; background:var(--black); color:#EFEFEF; border-radius:var(--radius);
+    padding:26px 28px; border-left:6px solid var(--red);
+  }
+  .agitate-box h4{color:var(--white);}
+
+  /* ===== SOLUTION (BƯỚC 4) ===== */
+  .steps-row{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:30px;}
+  .step-card{
+    background:var(--white); border:1px solid var(--gray-line); border-radius:var(--radius);
+    padding:22px 18px; text-align:center; position:relative;
+  }
+  .step-card .num{
+    width:36px; height:36px; border-radius:50%; background:var(--red); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-weight:800;
+    margin:0 auto 12px;
+  }
+  .step-card h4{font-size:16px; margin-bottom:6px;}
+  .step-card p{font-size:14px; color:var(--text-light); margin:0;}
+
+  /* ===== SPEAKER (BƯỚC 5) ===== */
+  .speaker-grid{display:grid; grid-template-columns:.85fr 1.15fr; gap:42px; align-items:center;}
+  .speaker-photo{
+    background:var(--gray); border:2px dashed var(--gray-line); border-radius:var(--radius);
+    aspect-ratio:3/4; display:flex; align-items:center; justify-content:center;
+    color:var(--text-light); font-size:14px; text-align:center; padding:20px; position:relative;
+  }
+  .speaker-photo .frame{
+    position:absolute; inset:14px; border:3px solid var(--red); border-radius:10px; pointer-events:none;
+  }
+  .speaker-name{font-size:13px; color:var(--red); font-weight:800; letter-spacing:.08em; text-transform:uppercase;}
+  .speaker-cred{display:grid; gap:10px; margin:20px 0; padding:0; list-style:none;}
+  .speaker-cred li{display:flex; gap:10px; font-size:15px;}
+  .speaker-cred li::before{content:"⚖"; color:var(--red); flex:0 0 auto;}
+  .org-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px;}
+  .org-chip{
+    background:var(--gray); border:1px solid var(--gray-line); border-radius:8px;
+    padding:8px 12px; font-size:13px; font-weight:600;
+  }
+
+  /* ===== BENEFITS (BƯỚC 6) ===== */
+  .benefit-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:30px;}
+  .benefit-card{
+    background:var(--white); border-radius:var(--radius); padding:22px;
+    border:1px solid var(--gray-line); display:flex; gap:14px; align-items:flex-start;
+  }
+  .benefit-card .ck{
+    flex:0 0 30px; height:30px; border-radius:50%; background:var(--black); color:var(--red);
+    display:flex; align-items:center; justify-content:center; font-weight:900;
+  }
+  .benefit-card p{margin:0; font-size:15px;}
+
+  /* ===== CURRICULUM (BƯỚC 7) ===== */
+  .module{
+    background:var(--white); border:1px solid var(--gray-line); border-radius:var(--radius);
+    padding:22px 24px; margin-top:14px; display:grid; grid-template-columns:auto 1fr; gap:18px;
+  }
+  .module .mnum{
+    font-family:'Playfair Display',serif; font-weight:900; font-size:30px; color:var(--red);
+    line-height:1;
+  }
+  .module h4{margin-bottom:8px;}
+  .module ul{margin:8px 0 0; padding-left:18px; color:var(--text-light); font-size:14px;}
+  .module ul li{margin-bottom:4px;}
+
+  /* ===== AUDIENCE (BƯỚC 8) ===== */
+  .fit-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:30px;}
+  .fit-card{border-radius:var(--radius); padding:24px;}
+  .fit-yes{background:#FFF4F4; border:1px solid #F7C9CE;}
+  .fit-no{background:var(--gray); border:1px solid var(--gray-line);}
+  .fit-card h4{display:flex; align-items:center; gap:8px;}
+  .fit-card ul{margin:0; padding-left:20px; font-size:15px; line-height:1.7;}
+
+  /* ===== FORMAT (BƯỚC 9) ===== */
+  .format-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:30px;}
+  .format-card{
+    background:var(--white); border:1px solid var(--gray-line); border-radius:var(--radius);
+    padding:20px; text-align:center;
+  }
+  .format-card .ic{font-size:28px; margin-bottom:10px;}
+  .format-card h4{font-size:15px; margin-bottom:4px;}
+  .format-card p{font-size:13px; color:var(--text-light); margin:0;}
+
+  /* ===== PROOF (BƯỚC 10) ===== */
+  .stat-row{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:30px 0 36px;}
+  .stat-card{text-align:center; padding:18px 10px;}
+  .stat-card .num{font-family:'Playfair Display',serif; font-size:32px; font-weight:800; color:var(--red);}
+  .stat-card .lbl{font-size:13px; color:#CFCFCF; margin-top:4px;}
+  .testi-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+  .testi-card{
+    background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.14);
+    border-radius:var(--radius); padding:20px;
+  }
+  .testi-card p{font-size:14px; color:#D8D8D8; font-style:italic;}
+  .testi-card .who{font-size:13px; color:var(--red); font-weight:700; margin-top:10px;}
+
+  /* ===== BONUS (BƯỚC 11) ===== */
+  .bonus-list{display:grid; gap:12px; margin-top:28px;}
+  .bonus-item{
+    display:grid; grid-template-columns:auto 1fr auto; gap:16px; align-items:center;
+    background:var(--white); border:1px solid var(--gray-line); border-radius:12px;
+    padding:16px 18px;
+  }
+  .bonus-item .gi{
+    width:42px; height:42px; border-radius:50%; background:var(--red); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-size:18px;
+  }
+  .bonus-item h4{margin:0 0 2px; font-size:15px;}
+  .bonus-item p{margin:0; font-size:13px; color:var(--text-light);}
+  .bonus-item .val{font-weight:800; color:var(--black); white-space:nowrap;}
+  .bonus-item .val .old{display:block; text-decoration:line-through; color:#B0B0B0; font-weight:500; font-size:12px;}
+
+  /* ===== PRICING (BƯỚC 12) ===== */
+  .price-card{
+    max-width:560px; margin:30px auto 0; background:var(--black); color:#fff;
+    border-radius:18px; padding:34px 30px; text-align:center; position:relative;
+    border:2px solid var(--red);
+  }
+  .price-card .ribbon{
+    position:absolute; top:-14px; left:50%; transform:translateX(-50%);
+    background:var(--red); padding:6px 18px; border-radius:20px; font-size:13px; font-weight:800;
+    letter-spacing:.04em;
+  }
+  .price-card .total-val{color:#B7B7B7; text-decoration:line-through; font-size:18px; margin-top:18px;}
+  .price-card .final{font-family:'Playfair Display',serif; font-size:48px; font-weight:900; color:var(--white); margin:6px 0;}
+  .price-card .final span{color:var(--red);}
+  .price-card .save{color:#FF8C97; font-weight:700; font-size:14px; margin-bottom:18px;}
+  .price-includes{text-align:left; margin:20px 0; padding:0; list-style:none; font-size:14px; color:#E2E2E2;}
+  .price-includes li{padding:6px 0; border-bottom:1px dashed rgba(255,255,255,.15);}
+  .price-includes li::before{content:"✓ "; color:var(--red); font-weight:800;}
+
+  /* ===== POLICY (BƯỚC 13) ===== */
+  .policy-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:28px;}
+  .policy-card{
+    background:var(--white); border:1px solid var(--gray-line); border-radius:var(--radius);
+    padding:20px; text-align:center;
+  }
+  .policy-card .ic{font-size:26px; margin-bottom:10px;}
+  .policy-card h4{font-size:15px;}
+  .policy-card p{font-size:13px; color:var(--text-light); margin:0;}
+
+  /* ===== URGENCY (BƯỚC 14) ===== */
+  .urgency-box{
+    background:var(--red); color:#fff; border-radius:var(--radius); padding:30px;
+    display:grid; grid-template-columns:1fr auto; gap:20px; align-items:center;
+  }
+  .urgency-box h3{color:#fff; margin-bottom:6px;}
+  .urgency-box p{margin:0; color:#FFE3E6; font-size:14px;}
+  .countdown{display:flex; gap:10px;}
+  .countdown .box{
+    background:rgba(0,0,0,.25); border-radius:10px; padding:10px 14px; text-align:center; min-width:64px;
+  }
+  .countdown .box .n{font-size:24px; font-weight:800; font-family:'Playfair Display',serif;}
+  .countdown .box .u{font-size:11px; text-transform:uppercase; letter-spacing:.05em;}
+  .slot-bar{margin-top:18px; background:rgba(255,255,255,.25); border-radius:8px; height:10px; overflow:hidden;}
+  .slot-bar .fill{background:#fff; height:100%; width:70%;}
+
+  /* ===== FAQ (BƯỚC 15) ===== */
+  .faq-item{
+    border-bottom:1px solid var(--gray-line); padding:6px 0;
+  }
+  .faq-item summary{
+    cursor:pointer; font-weight:700; font-size:16px; padding:14px 0; list-style:none;
+    display:flex; justify-content:space-between; align-items:center; color:var(--black);
+  }
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary::after{content:"+"; color:var(--red); font-size:22px; font-weight:800;}
+  .faq-item[open] summary::after{content:"–";}
+  .faq-item p{padding:0 0 16px; color:var(--text-light); font-size:14.5px;}
+
+  /* ===== REGISTER (BƯỚC 16) ===== */
+  .register-grid{display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:flex-start;}
+  .form-card{
+    background:var(--white); border-radius:var(--radius); padding:28px; box-shadow:var(--shadow);
+    border:1px solid var(--gray-line);
+  }
+  .form-card label{display:block; font-size:13px; font-weight:700; margin-bottom:6px; margin-top:14px;}
+  .form-card label:first-child{margin-top:0;}
+  .form-card input{
+    width:100%; padding:13px 14px; border:1px solid var(--gray-line); border-radius:8px;
+    font-size:15px; font-family:inherit;
+  }
+  .form-card input:focus{outline:2px solid var(--red); border-color:var(--red);}
+  .form-card .btn{margin-top:20px;}
+  .form-note{font-size:12px; color:var(--text-light); margin-top:12px; text-align:center;}
+  .contact-direct{
+    background:var(--black); color:#fff; border-radius:var(--radius); padding:26px; margin-top:20px;
+  }
+  .contact-direct a.btn{margin-top:10px; margin-right:8px;}
+  #form-success{
+    display:none; background:#E9F8EE; border:1px solid #BCE7C8; color:#1F7A39;
+    border-radius:10px; padding:16px; font-weight:600; margin-top:16px; text-align:center;
+  }
+
+  /* ===== STICKY MOBILE CTA ===== */
+  .sticky-cta{
+    position:fixed; left:0; right:0; bottom:0; z-index:70; background:var(--black);
+    padding:10px 14px; display:none; align-items:center; justify-content:space-between; gap:12px;
+    box-shadow:0 -8px 20px rgba(0,0,0,.25);
+  }
+  .sticky-cta .price{color:#fff; font-size:13px;}
+  .sticky-cta .price b{color:var(--red); font-size:16px; display:block;}
+  .sticky-cta .btn{padding:13px 22px; font-size:14px;}
+
+  /* ===== FOOTER ===== */
+  footer{background:var(--black); color:#9A9A9A; padding:34px 0 90px; font-size:13px;}
+  footer .wrap{display:flex; flex-wrap:wrap; justify-content:space-between; gap:16px;}
+  footer .disclaimer{margin-top:18px; padding-top:18px; border-top:1px solid #2A2A2A; font-size:12px; color:#777;}
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 920px){
+    .hero-grid, .speaker-grid, .register-grid{grid-template-columns:1fr;}
+    .hero-visual{order:-1;}
+    .steps-row, .format-grid, .policy-grid, .stat-row{grid-template-columns:repeat(2,1fr);}
+    .benefit-grid, .fit-grid{grid-template-columns:1fr;}
+    .testi-grid{grid-template-columns:1fr;}
+    .urgency-box{grid-template-columns:1fr; text-align:center;}
+    .countdown{justify-content:center;}
+    .sticky-cta{display:flex;}
+    body{padding-bottom:0;}
+    section{padding:46px 0;}
+    .hero h1{font-size:28px;}
+    .price-card .final{font-size:38px;}
+  }
+  @media (max-width:560px){
+    .steps-row, .format-grid, .policy-grid, .stat-row{grid-template-columns:1fr 1fr;}
+    .module{grid-template-columns:1fr;}
+    .module .mnum{font-size:22px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP URGENCY BAR -->
+<div class="topbar">
+  🔥 Ưu đãi khai giảng <strong>chỉ 999.000đ</strong> — áp dụng cho <strong>30 học viên đầu tiên</strong> · còn lại <span id="cd">--:--:--</span>
+</div>
+
+<!-- ============================================================
+  BƯỚC 1 — HERO: Hook + giá trị cốt lõi trong 5 giây
+============================================================ -->
+<section class="hero" id="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="section-tag">Khóa học định hướng nghề luật</span>
+      <h1>Sắp ra trường ngành Luật mà vẫn chưa biết mình <span>hợp nghề gì?</span></h1>
+      <p class="sub">Lộ trình <strong>GIẢI MÃ NGHỀ LUẬT</strong> cùng <strong>Luật sư Kim</strong> — 12 năm kinh nghiệm tư vấn pháp luật &amp; tranh tụng — giúp bạn nhìn rõ 8 nhóm nghề luật, chọn đúng hướng và biết chính xác cần làm gì để xin việc đúng ngành.</p>
+      <div class="hero-badges">
+        <span class="badge"><span class="dot"></span> 12 năm kinh nghiệm hành nghề thực tế</span>
+        <span class="badge"><span class="dot"></span> Diễn giả tại ĐH Luật, ĐHQG, Đại sứ quán Mỹ</span>
+        <span class="badge"><span class="dot"></span> Cố vấn định hướng việc làm cho sinh viên Luật</span>
+      </div>
+      <a href="#register" class="btn btn-primary">Đăng Ký Ngay — Chỉ 999K</a>
+    </div>
+    <div class="hero-visual">
+      <div class="imgbox">[Ảnh/Video Luật sư Kim đang chia sẻ tại hội thảo<br>— thay placeholder này bằng ảnh thật, tỉ lệ 4:5]</div>
+      <div class="price-tag">
+        <div class="old">Giá trị thực: 2.846.000đ</div>
+        <div class="new">999.000đ</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  BƯỚC 2 — VẤN ĐỀ (Problem) — gọi tên đúng nỗi đau
+============================================================ -->
+<section id="problem">
+  <div class="wrap">
+    <span class="section-tag">Có phải bạn đang...</span>
+    <h2>Học 4 năm Luật rồi mà ra trường vẫn mông lung?</h2>
+    <div class="pain-list">
+      <div class="pain-item"><span class="x">✕</span><p>Sắp ra trường (hoặc đã ra trường) nhưng vẫn không biết nên theo luật sư tranh tụng, pháp chế doanh nghiệp, công chứng hay thi công chức tư pháp.</p></div>
+      <div class="pain-item"><span class="x">✕</span><p>Nộp CV vào đâu cũng bị từ chối vì "chưa có kinh nghiệm" — mà không biết bắt đầu tích lũy kinh nghiệm từ đâu trong khi còn đang đi học.</p></div>
+      <div class="pain-item"><span class="x">✕</span><p>Gia đình không có ai làm ngành luật để hỏi, lên mạng tìm thì mỗi người nói một kiểu, không biết tin ai.</p></div>
+      <div class="pain-item"><span class="x">✕</span><p>Thấy bạn cùng lớp đã có nơi thực tập, có định hướng rõ ràng — còn mình vẫn "tay trắng" giữa năm cuối, càng lo lại càng không biết hành động từ đâu.</p></div>
+      <div class="pain-item"><span class="x">✕</span><p>Không hiểu rõ lộ trình hành nghề thực tế: học việc, tập sự luật sư, thi chứng chỉ mất bao lâu, tốn bao nhiêu chi phí.</p></div>
+    </div>
+    <div class="agitate-box">
+      <h4>Nếu cứ tiếp tục mông lung...</h4>
+      <p style="margin:0;color:#D8D8D8;">Bạn sẽ mất 1–2 năm đầu sự nghiệp loanh quanh thử việc trái ngành, lương thấp, mất tự tin — và rất dễ bỏ luôn nghề luật mà mình đã mất 4 năm đèn sách để theo đuổi. Nếu bạn đang gặp ít nhất 1 trong những điều trên — <strong style="color:#fff;">Giải Mã Nghề Luật</strong> chính là lộ trình bạn cần ngay lúc này.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  BƯỚC 3 + 4 — GIẢI PHÁP (Solution + how it works)
+============================================================ -->
+<section class="bg-gray" id="solution">
+  <div class="wrap">
+    <span class="section-tag">Giải pháp</span>
+    <h2>Giải Mã Nghề Luật hoạt động như thế nào?</h2>
+    <p style="max-width:680px;">Một lộ trình ngắn gọn, thực chiến, giúp bạn đi từ "không biết bắt đầu từ đâu" đến "tự tin biết chính xác mình nên làm gì" — chỉ trong vài giờ học tập trung.</p>
+    <div class="steps-row">
+      <div class="step-card"><div class="num">1</div><h4>Định vị bản thân</h4><p>Trắc nghiệm xác định bạn hợp nhóm nghề luật nào trong 8 nhóm chính.</p></div>
+      <div class="step-card"><div class="num">2</div><h4>Hiểu rõ lộ trình</h4><p>Nắm thời gian, chi phí, điều kiện hành nghề của nhóm nghề mình chọn.</p></div>
+      <div class="step-card"><div class="num">3</div><h4>Chuẩn bị hồ sơ</h4><p>Có CV, hồ sơ năng lực chuẩn ngành luật dù chưa có kinh nghiệm.</p></div>
+      <div class="step-card"><div class="num">4</div><h4>Hành động đúng</h4><p>Biết chính xác nơi để nộp đơn, cách tiếp cận và trả lời phỏng vấn.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  BƯỚC 5 — DIỄN GIẢ (Authority)
+============================================================ -->
+<section id="speaker">
+  <div class="wrap speaker-grid">
+    <div class="speaker-photo">
+      <div class="frame"></div>
+      [Ảnh chân dung Luật sư Kim<br>— thay bằng ảnh thật, tỉ lệ 3:4]
+    </div>
+    <div>
+      <span class="section-tag">Người đồng hành cùng bạn</span>
+      <h2>Luật Sư Kim <span style="font-size:16px;color:var(--text-light);font-family:'Be Vietnam Pro',sans-serif;">(Nguyễn Thị Kim Chi)</span></h2>
+      <p>Với <strong>12 năm kinh nghiệm</strong> trong lĩnh vực tư vấn pháp luật, tranh tụng và định hướng việc làm cho sinh viên, Luật sư Kim là người đã trực tiếp đồng hành cùng nhiều thế hệ sinh viên luật từ những ngày còn mông lung nhất, đến khi tìm được hướng đi đúng với năng lực và mong muốn của mình.</p>
+      <ul class="speaker-cred">
+        <li>12 năm hành nghề thực tế: tư vấn pháp luật doanh nghiệp &amp; cá nhân, trực tiếp tranh tụng tại tòa.</li>
+        <li>Thường xuyên được mời chia sẻ, cố vấn định hướng nghề nghiệp cho sinh viên luật tại nhiều trường đại học và tổ chức.</li>
+        <li>Người sáng lập lộ trình "Giải Mã Nghề Luật" — đúc kết từ hàng trăm buổi tư vấn 1:1 với sinh viên và cử nhân luật mới ra trường.</li>
+        <li>[Bổ sung: số sinh viên đã được tư vấn/định hướng trực tiếp — ví dụ "Đã định hướng cho hơn ___ sinh viên luật"]</li>
+        <li>[Bổ sung: số buổi workshop/talkshow đã thực hiện — ví dụ "___+ buổi chia sẻ tại các trường, tổ chức"]</li>
+      </ul>
+      <p style="font-size:14px;color:var(--text-light);margin-bottom:8px;">Đã được mời chia sẻ tại:</p>
+      <div class="org-row">
+        <span class="org-chip">Đại Học Luật</span>
+        <span class="org-chip">Đại Học Quốc Gia</span>
+        <span class="org-chip">Đại Sứ Quán Mỹ</span>
+        <span class="org-chip">Các tổ chức phi chính phủ (NGO)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  BƯỚC 6 — LỢI ÍCH / CHUYỂN HÓA (Benefits)
+============================================================ -->
+<section class="bg-gray" id="benefits">
+  <div class="wrap">
+    <span class="section-tag">Sau khóa học, bạn sẽ</span>
+    <h2>Không còn mông lung — chỉ còn hành động đúng hướng</h2>
+    <div class="benefit-grid">
+      <div class="benefit-card"><span class="ck">✓</span><p>Nhìn rõ "bản đồ" 8 nhóm nghề luật tại Việt Nam và biết chính xác mình hợp nhóm nào.</p></div>
+      <div class="benefit-card"><span class="ck">✓</span><p>Hiểu rõ lộ trình, thời gian, chi phí để hành nghề từng nhóm — không còn đoán mò.</p></div>
+      <div class="benefit-card"><span class="ck">✓</span><p>Có CV và hồ sơ năng lực chuẩn ngành luật, tự tin nộp đơn dù chưa có kinh nghiệm.</p></div>
+      <div class="benefit-card"><span class="ck">✓</span><p>Tự tin trả lời phỏng vấn, xử lý câu hỏi tình huống pháp lý thường gặp.</p></div>
+      <div class="benefit-card"><span class="ck">✓</span><p>Có hướng tiếp cận văn phòng luật, doanh nghiệp, tổ chức quốc tế để xin thực tập/việc làm.</p></div>
+      <div class="benefit-card"><span class="ck">✓</span><p>Được Luật sư Kim trực tiếp giải đáp thắc mắc cá nhân trong buổi Live Q&amp;A.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  BƯỚC 7 — NỘI DUNG KHÓA HỌC (Curriculum)
+============================================================ -->
+<section id="curriculum">
+  <div class="wrap">
+    <span class="section-tag">Nội dung khóa học</span>
+    <h2>6 module — từ định hướng đến hành động</h2>
+    <div class="module">
+      <div class="mnum">01</div>
+      <div><h4>Bản Đồ Toàn Cảnh Ngành Luật Việt Nam 2025–2026</h4>
+        <ul><li>8 nhóm nghề luật: luật sư tranh tụng, tư vấn doanh nghiệp, pháp chế nội bộ, công chứng/thừa phát lại, công chức tư pháp (tòa án, kiểm sát, thi hành án), thuế – hải quan, sở hữu trí tuệ, tổ chức quốc tế/NGO.</li>
+        <li>Mức thu nhập tham khảo, độ cạnh tranh và xu hướng tuyển dụng từng nhóm.</li></ul>
+      </div>
+    </div>
+    <div class="module">
+      <div class="mnum">02</div>
+      <div><h4>Trắc Nghiệm Định Hướng — "Bạn hợp nhóm nghề luật nào?"</h4>
+        <ul><li>Bộ câu hỏi đánh giá tính cách, năng lực, sở thích nghề nghiệp.</li>
+        <li>Hướng dẫn đọc kết quả và đối chiếu với bản đồ nghề ở Module 1.</li></ul>
+      </div>
+    </div>
+    <div class="module">
+      <div class="mnum">03</div>
+      <div><h4>Lộ Trình &amp; Điều Kiện Hành Nghề Từng Nhóm</h4>
+        <ul><li>Tập sự luật sư: thời gian, chi phí, kỳ thi cần vượt qua.</li>
+        <li>Thi công chức tư pháp: hồ sơ, các vòng thi.</li>
+        <li>Lộ trình pháp chế doanh nghiệp: từ thực tập đến chuyên viên.</li></ul>
+      </div>
+    </div>
+    <div class="module">
+      <div class="mnum">04</div>
+      <div><h4>Bộ Kỹ Năng Xin Việc Ngành Luật</h4>
+        <ul><li>Viết CV &amp; cover letter chuẩn ngành luật.</li>
+        <li>Trả lời phỏng vấn case study pháp lý thường gặp.</li>
+        <li>Xây dựng hồ sơ năng lực khi chưa có kinh nghiệm thực tế.</li></ul>
+      </div>
+    </div>
+    <div class="module">
+      <div class="mnum">05</div>
+      <div><h4>Xây Dựng Mạng Lưới Quan Hệ Ngành Luật</h4>
+        <ul><li>Cách tiếp cận văn phòng luật, doanh nghiệp, tổ chức quốc tế để xin thực tập.</li>
+        <li>Tận dụng mạng lưới cựu sinh viên và sự kiện ngành luật.</li></ul>
+      </div>
+    </div>
+    <div class="module">
+      <div class="mnum">06</div>
+      <div><h4>Buổi Live Q&amp;A Cùng Luật Sư Kim</h4>
+        <ul><li>Giải đáp trực tiếp tình huống định hướng nghề nghiệp của riêng bạn.</li>
+        <li>Case thực tế được đúc kết từ hành trình 12 năm hành nghề của Luật sư Kim.</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  BƯỚC 8 — ĐỐI TƯỢNG PHÙ HỢP
+============================================================ -->
+<section class="bg-gray" id="audience">
+  <div class="wrap">
+    <span class="section-tag">Dành cho ai?</span>
+    <h2>Khóa học này có phù hợp với bạn?</h2>
+    <div class="fit-grid">
+      <div class="fit-card fit-yes">
+        <h4>✅ Phù hợp với bạn nếu:</h4>
+        <ul>
+          <li>Sinh viên năm 3, năm 4 ngành Luật chưa rõ định hướng nghề nghiệp.</li>
+          <li>Sinh viên mới ra trường (0–2 năm) đang tìm việc ngành luật nhưng chưa biết bắt đầu từ đâu.</li>
+          <li>Người đã đi làm trái ngành, muốn quay lại theo đúng chuyên ngành luật đã học.</li>
+        </ul>
+      </div>
+      <div class="fit-card fit-no">
+        <h4>⛔ Chưa phù hợp nếu:</h4>
+        <ul>
+          <li>Bạn đã có định hướng rõ ràng và đang làm đúng ngành mình mong muốn.</li>
+          <li>Bạn tìm kiếm "bí kíp làm giàu nhanh" từ nghề luật — đây không phải mục tiêu của khóa học.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  BƯỚC 9 — HÌNH THỨC HỌC
+============================================================ -->
+<section id="format">
+  <div class="wrap">
+    <span class="section-tag">Hình thức học</span>
+    <h2>Học mọi lúc, mọi nơi — vẫn được hỗ trợ sát sao</h2>
+    <div class="format-grid">
+      <div class="format-card"><div class="ic">🎥</div><h4>6 module video</h4><p>Bài giảng thu sẵn, xem lại không giới hạn.</p></div>
+      <div class="format-card"><div class="ic">🗨️</div><h4>1 buổi Live Q&amp;A</h4><p>Giải đáp trực tiếp cùng Luật sư Kim.</p></div>
+      <div class="format-card"><div class="ic">📱</div><h4>Học trên điện thoại</h4><p>Chỉ cần điện thoại hoặc máy tính có internet.</p></div>
+      <div class="format-card"><div class="ic">👥</div><h4>Nhóm Zalo hỗ trợ</h4><p>Đồng hành cùng cộng đồng học viên &amp; trợ lý khóa học.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  BƯỚC 10 — BẰNG CHỨNG XÃ HỘI (Social proof)
+============================================================ -->
+<section class="bg-black" id="proof">
+  <div class="wrap">
+    <span class="section-tag">Vì sao tin tưởng Luật sư Kim?</span>
+    <h2 style="color:#fff;">Kinh nghiệm thực chiến — không lý thuyết suông</h2>
+    <div class="stat-row">
+      <div class="stat-card"><div class="num">12+</div><div class="lbl">năm hành nghề luật thực tế</div></div>
+      <div class="stat-card"><div class="num">4+</div><div class="lbl">trường ĐH &amp; tổ chức từng mời chia sẻ</div></div>
+      <div class="stat-card"><div class="num">6</div><div class="lbl">module nội dung thực chiến</div></div>
+      <div class="stat-card"><div class="num">999K</div><div class="lbl">đầu tư ban đầu, tiết kiệm 65%</div></div>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card"><p>"[Cảm nhận học viên A sau khi hoàn thành khóa học — ví dụ: đã chọn được đúng nhóm nghề muốn theo đuổi]"</p><div class="who">[Họ tên học viên] — [Trường Đại học]</div></div>
+      <div class="testi-card"><p>"[Cảm nhận học viên B — ví dụ: tự tin viết CV và đi phỏng vấn sau khi học]"</p><div class="who">[Họ tên học viên] — [Trường Đại học]</div></div>
+      <div class="testi-card"><p>"[Cảm nhận học viên C — ví dụ: được giải đáp thắc mắc cá nhân trong buổi Live]"</p><div class="who">[Họ tên học viên] — [Trường Đại học]</div></div>
+    </div>
+    <p style="text-align:center;font-size:12px;color:#777;margin-top:18px;">* Mục cảm nhận học viên sẽ được cập nhật bằng phản hồi thật sau lứa khai giảng đầu tiên.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+  BƯỚC 11 — QUÀ TẶNG KÈM (Bonus stack)
+============================================================ -->
+<section id="bonus">
+  <div class="wrap">
+    <span class="section-tag">Quà tặng kèm khi đăng ký hôm nay</span>
+    <h2>Không chỉ là khóa học — là cả bộ hành trang vào nghề</h2>
+    <div class="bonus-list">
+      <div class="bonus-item"><div class="gi">📄</div><div><h4>Bộ 20 mẫu CV &amp; Cover Letter chuẩn ngành Luật</h4><p>Chỉnh sửa và dùng ngay, không cần thiết kế lại từ đầu.</p></div><div class="val">299.000đ</div></div>
+      <div class="bonus-item"><div class="gi">🏢</div><div><h4>Danh sách 100+ nơi tuyển dụng/thực tập ngành Luật</h4><p>Cập nhật theo thị trường Việt Nam 2025–2026.</p></div><div class="val">199.000đ</div></div>
+      <div class="bonus-item"><div class="gi">📘</div><div><h4>Ebook "Cẩm Nang Chọn Nghề Luật"</h4><p>Tóm tắt toàn bộ 8 nhóm nghề để tra cứu nhanh.</p></div><div class="val">149.000đ</div></div>
+      <div class="bonus-item"><div class="gi">🎙️</div><div><h4>1 buổi tư vấn nhóm trực tuyến cùng Luật sư Kim</h4><p>Hỏi đáp chuyên sâu theo tình huống cá nhân.</p></div><div class="val">500.000đ</div></div>
+      <div class="bonus-item"><div class="gi">🤝</div><div><h4>Thẻ thành viên cộng đồng "Luật Sư Tương Lai"</h4><p>Kết nối với sinh viên luật cùng định hướng, hỗ trợ trọn đời.</p></div><div class="val">199.000đ</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  BƯỚC 12 — BẢNG GIÁ & ƯU ĐÃI (Offer)
+============================================================ -->
+<section class="bg-gray" id="pricing">
+  <div class="wrap center">
+    <span class="section-tag">Ưu đãi khai giảng</span>
+    <h2>Đầu tư hôm nay — chỉ bằng 1 buổi đi cà phê mỗi tháng</h2>
+    <div class="price-card">
+      <span class="ribbon">CHỈ DÀNH CHO 30 HỌC VIÊN ĐẦU TIÊN</span>
+      <ul class="price-includes">
+        <li>Khóa học "Giải Mã Nghề Luật" — 6 module (1.500.000đ)</li>
+        <li>Bộ 20 mẫu CV &amp; Cover Letter ngành Luật (299.000đ)</li>
+        <li>Danh sách 100+ nơi tuyển dụng/thực tập (199.000đ)</li>
+        <li>Ebook "Cẩm Nang Chọn Nghề Luật" (149.000đ)</li>
+        <li>1 buổi tư vấn nhóm cùng Luật sư Kim (500.000đ)</li>
+        <li>Thẻ thành viên cộng đồng trọn đời (199.000đ)</li>
+      </ul>
+      <div class="total-val">Tổng giá trị: 2.846.000đ</div>
+      <div class="final">Chỉ <span>999.000đ</span></div>
+      <div class="save">Tiết kiệm 1.847.000đ — giảm 65%</div>
+      <a href="#register" class="btn btn-primary btn-block">Đăng Ký Ngay — Giữ Chỗ Hôm Nay</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  BƯỚC 13 — CHÍNH SÁCH HẬU MÃI / CAM KẾT (Guarantee)
+============================================================ -->
+<section id="policy">
+  <div class="wrap">
+    <span class="section-tag">Chính sách hậu mãi</span>
+    <h2>Cam kết rõ ràng — học là phải thấy rõ hướng đi</h2>
+    <div class="policy-grid">
+      <div class="policy-card"><div class="ic">💸</div><h4>Hoàn tiền 100% trong 7 ngày</h4><p>Nếu học hết Module 1–2 mà thấy chưa phù hợp, hoàn lại toàn bộ chi phí.</p></div>
+      <div class="policy-card"><div class="ic">♾️</div><h4>Học trọn đời</h4><p>Truy cập và xem lại nội dung không giới hạn số lần, không giới hạn thời gian.</p></div>
+      <div class="policy-card"><div class="ic">🔄</div><h4>Cập nhật miễn phí 12 tháng</h4><p>Nội dung cập nhật theo thay đổi quy định &amp; thị trường tuyển dụng ngành luật.</p></div>
+      <div class="policy-card"><div class="ic">🎓</div><h4>Chứng nhận hoàn thành</h4><p>Có thể đưa vào CV như một hoạt động phát triển bản thân.</p></div>
+    </div>
+    <p style="font-size:13px;color:var(--text-light);margin-top:18px;">* Khóa học giúp bạn có lộ trình định hướng rõ ràng và kỹ năng xin việc đúng ngành. Kết quả tìm việc thực tế còn phụ thuộc vào nỗ lực cá nhân và thị trường tuyển dụng — chúng tôi không cam kết tuyệt đối "có việc ngay" sau khóa học.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+  BƯỚC 14 — KHAN HIẾM / KHẨN CẤP (Scarcity & urgency)
+============================================================ -->
+<section class="bg-gray" id="urgency">
+  <div class="wrap">
+    <div class="urgency-box">
+      <div>
+        <h3>Chỉ nhận 30 học viên cho lứa khai giảng đầu tiên</h3>
+        <p>Để Luật sư Kim có thể trực tiếp theo dõi và giải đáp sát sao trong buổi Live Q&amp;A, lứa khai giảng đầu tiên giới hạn 30 học viên. Ưu đãi 999.000đ chỉ áp dụng trong thời gian countdown dưới đây.</p>
+        <div class="slot-bar"><div class="fill"></div></div>
+        <p style="margin-top:8px;font-size:12px;color:#FFE3E6;">* Số liệu minh họa — cập nhật số slot còn lại thực tế trước khi đăng tải.</p>
+      </div>
+      <div class="countdown" id="countdown-box">
+        <div class="box"><div class="n" id="cd-h">00</div><div class="u">Giờ</div></div>
+        <div class="box"><div class="n" id="cd-m">00</div><div class="u">Phút</div></div>
+        <div class="box"><div class="n" id="cd-s">00</div><div class="u">Giây</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  BƯỚC 15 — FAQ (Xử lý phản đối)
+============================================================ -->
+<section id="faq">
+  <div class="wrap" style="max-width:760px;">
+    <span class="section-tag">Câu hỏi thường gặp</span>
+    <h2>Giải đáp trước khi bạn đăng ký</h2>
+
+    <details class="faq-item" open>
+      <summary>Khóa học này dành cho ai?</summary>
+      <p>Dành cho sinh viên năm 3–4 ngành Luật, sinh viên mới ra trường (0–2 năm) chưa rõ định hướng nghề nghiệp, và những ai đang làm trái ngành muốn quay lại đúng chuyên ngành luật đã học.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Học bao lâu, hình thức học thế nào?</summary>
+      <p>Khóa học gồm 6 module video (xem theo tốc độ của riêng bạn) và 1 buổi Live Q&amp;A. Học hoàn toàn online qua điện thoại hoặc máy tính, có nhóm Zalo hỗ trợ trong suốt quá trình học.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Tôi đã đi làm trái ngành rồi, học có còn kịp không?</summary>
+      <p>Hoàn toàn kịp. Module 3–5 được thiết kế riêng để giúp người đã đi làm trái ngành xây dựng lại lộ trình và hồ sơ năng lực để quay về đúng chuyên ngành luật.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Học xong có chắc xin được việc không?</summary>
+      <p>Khóa học giúp bạn có lộ trình rõ ràng, hồ sơ chuẩn và kỹ năng xin việc đúng ngành — đây là yếu tố then chốt giúp tăng cơ hội. Tuy nhiên kết quả tìm việc cụ thể còn phụ thuộc vào nỗ lực bản thân và thị trường tuyển dụng tại từng thời điểm, nên chúng tôi không cam kết tuyệt đối "có việc ngay".</p>
+    </details>
+    <details class="faq-item">
+      <summary>Có được hoàn tiền nếu không phù hợp không?</summary>
+      <p>Có. Bạn được hoàn tiền 100% trong 7 ngày đầu nếu đã học hết Module 1–2 mà thấy nội dung chưa phù hợp với nhu cầu của mình.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Thanh toán như thế nào, có xuất hóa đơn không?</summary>
+      <p>[Bổ sung: phương thức thanh toán thực tế — chuyển khoản/QR/ví điện tử — và chính sách xuất hóa đơn nếu có].</p>
+    </details>
+    <details class="faq-item">
+      <summary>Sau khi đăng ký, bao lâu thì được vào học?</summary>
+      <p>[Bổ sung: thời gian cấp quyền truy cập thực tế — ví dụ "trong vòng 30 phút – 24 giờ sau khi xác nhận thanh toán"].</p>
+    </details>
+  </div>
+</section>
+
+<!-- ============================================================
+  BƯỚC 16 — FINAL CTA / FORM ĐĂNG KÝ (Chốt đơn)
+============================================================ -->
+<section class="bg-black" id="register">
+  <div class="wrap register-grid">
+    <div>
+      <span class="section-tag">Bước cuối cùng</span>
+      <h2 style="color:#fff;">Đừng để sự mông lung quyết định tương lai nghề nghiệp của bạn</h2>
+      <p style="color:#CFCFCF;">Chỉ với 999.000đ — ít hơn một buổi đi chơi cuối tuần — bạn có thể tiết kiệm 1–2 năm loay hoay chọn sai hướng. Đăng ký ngay hôm nay để giữ 1 trong 30 suất của lứa khai giảng đầu tiên.</p>
+      <div class="contact-direct">
+        <p style="margin:0 0 10px;color:#fff;font-weight:700;">Không muốn điền form? Liên hệ trực tiếp:</p>
+        <a href="tel:0900000000" class="btn btn-outline">📞 [Điền SĐT hotline]</a>
+        <a href="https://zalo.me/0900000000" class="btn btn-outline">💬 [Điền link Zalo]</a>
+      </div>
+    </div>
+    <div class="form-card">
+      <h3 style="color:var(--black);">Đăng ký giữ chỗ ngay</h3>
+      <form id="register-form">
+        <label for="fullname">Họ và tên *</label>
+        <input type="text" id="fullname" name="fullname" placeholder="Nguyễn Văn A" required>
+        <label for="phone">Số điện thoại *</label>
+        <input type="tel" id="phone" name="phone" placeholder="09xxxxxxxx" pattern="[0-9]{9,11}" required>
+        <label for="email">Email (để gửi tài liệu khóa học)</label>
+        <input type="email" id="email" name="email" placeholder="email@example.com">
+        <input type="hidden" id="utm_source" name="utm_source">
+        <button type="submit" class="btn btn-primary btn-block">Đăng Ký Ngay — Chỉ 999K</button>
+      </form>
+      <div id="form-success">✓ Đăng ký thành công! Đội ngũ hỗ trợ sẽ liên hệ với bạn trong thời gian sớm nhất.</div>
+      <p class="form-note">🔒 Thông tin của bạn được bảo mật, chỉ dùng để liên hệ xác nhận đăng ký khóa học.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STICKY MOBILE CTA -->
+<div class="sticky-cta">
+  <div class="price">Ưu đãi khai giảng<b>999.000đ</b></div>
+  <a href="#register" class="btn btn-primary">Đăng Ký Ngay</a>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <strong style="color:#fff;">GIẢI MÃ NGHỀ LUẬT</strong> — cùng Luật sư Kim<br>
+      [Điền tên đơn vị tổ chức/pháp lý nếu có]<br>
+      Hotline: [Điền SĐT] · Zalo: [Điền Zalo] · Email: [Điền email hỗ trợ]
+    </div>
+    <div>
+      © 2026 Giải Mã Nghề Luật. All rights reserved.
+    </div>
+  </div>
+  <div class="wrap disclaimer">
+    Đây là khóa học định hướng nghề nghiệp dành cho sinh viên/cử nhân ngành Luật, không phải dịch vụ tư vấn pháp lý cho vụ việc cụ thể và không cam kết kết quả việc làm sau khóa học. Mọi số liệu thống kê, cảm nhận học viên trong placeholder [ ] sẽ được cập nhật bằng dữ liệu thực tế trước khi landing page chính thức vận hành.
+  </div>
+</footer>
+
+<!-- PIXEL/GA4: chèn mã noscript Meta Pixel tại đây nếu cần -->
+
+<script>
+  // ===== Countdown dùng chung cho topbar + section khẩn cấp =====
+  // Cửa sổ ưu đãi 48h theo từng lượt khách (lưu localStorage) — KHÔNG hard-code 1 ngày cố định
+  // để tránh hiển thị ưu đãi "đã hết hạn" khi trang được xem lại sau nhiều ngày.
+  // Có thể đổi sang mốc thời gian cố định bằng cách set DEADLINE = new Date('2026-06-30T23:59:59');
+  (function(){
+    var KEY = 'gmnl_deadline';
+    var DURATION_MS = 48 * 60 * 60 * 1000; // 48 giờ — chỉnh nếu cần
+    var deadline = localStorage.getItem(KEY);
+    if(!deadline){
+      deadline = Date.now() + DURATION_MS;
+      localStorage.setItem(KEY, deadline);
+    } else {
+      deadline = parseInt(deadline, 10);
+    }
+
+    function pad(n){ return String(n).padStart(2,'0'); }
+
+    function tick(){
+      var diff = deadline - Date.now();
+      if(diff <= 0){
+        deadline = Date.now() + DURATION_MS;
+        localStorage.setItem(KEY, deadline);
+        diff = DURATION_MS;
+      }
+      var h = Math.floor(diff/3600000);
+      var m = Math.floor((diff%3600000)/60000);
+      var s = Math.floor((diff%60000)/1000);
+
+      var cdTop = document.getElementById('cd');
+      if(cdTop) cdTop.textContent = pad(h)+':'+pad(m)+':'+pad(s);
+
+      var ch = document.getElementById('cd-h');
+      var cm = document.getElementById('cd-m');
+      var cs = document.getElementById('cd-s');
+      if(ch) ch.textContent = pad(h);
+      if(cm) cm.textContent = pad(m);
+      if(cs) cs.textContent = pad(s);
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+
+  // ===== UTM capture =====
+  (function(){
+    var params = new URLSearchParams(window.location.search);
+    var src = params.get('utm_source') || params.get('utm_campaign') || 'direct';
+    var utmInput = document.getElementById('utm_source');
+    if(utmInput) utmInput.value = src;
+  })();
+
+  // ===== Form đăng ký (demo — cần nối backend thật) =====
+  var form = document.getElementById('register-form');
+  if(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      // TODO: thay đoạn này bằng fetch() gửi data tới Google Sheets/CRM/webhook Zalo OA
+      // Ví dụ: fetch('https://YOUR_ENDPOINT', {method:'POST', body: new FormData(form)})
+      document.getElementById('form-success').style.display = 'block';
+      form.reset();
+      // Gợi ý: bắn event 'Lead' cho Meta Pixel / GA4 tại đây sau khi gửi thành công.
+    });
+  }
+</script>
+
+</body>
+</html>
