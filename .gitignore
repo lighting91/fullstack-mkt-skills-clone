@@ -18,6 +18,13 @@ package-lock.json
 outputs/
 *.output.md
 
+# Claude Code local config
+.claude/
+
+# Generated brief outputs
+brief-*.md
+brief-*.html
+
 # Environment
 .env
 .env.local

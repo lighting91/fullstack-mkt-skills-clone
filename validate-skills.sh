@@ -7,7 +7,6 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
-SKILLS_DIR="skills"
 ISSUES=0
 WARNINGS=0
 PASSED=0
@@ -16,8 +15,23 @@ echo "Validating Skills Against Agent Skills Specification"
 echo "====================================================="
 echo ""
 
+# Auto-discover skill folders across dual-edition + modules structure (v2.0 layout)
+SKILL_DIRS=()
+[ -d "skills/vi" ] && SKILL_DIRS+=("skills/vi")
+[ -d "skills/en" ] && SKILL_DIRS+=("skills/en")
+[ -d "modules/personal-branding/vi" ] && SKILL_DIRS+=("modules/personal-branding/vi")
+[ -d "modules/personal-branding/en" ] && SKILL_DIRS+=("modules/personal-branding/en")
+[ -d "modules/dropshipping/en" ] && SKILL_DIRS+=("modules/dropshipping/en")
+
+for SKILLS_DIR in "${SKILL_DIRS[@]}"; do
+echo "--- Cluster: $SKILLS_DIR ---"
 for skill_dir in "$SKILLS_DIR"/*/; do
     skill_name=$(basename "$skill_dir")
+
+    # Skip non-skill directories
+    [[ "$skill_name" == "references" ]] && continue
+    [[ "$skill_name" == "workflows" ]] && continue
+
     skill_file="$skill_dir/SKILL.md"
     errors=()
     warnings=()
@@ -89,6 +103,107 @@ for skill_dir in "$SKILLS_DIR"/*/; do
         echo -e "${GREEN}PASS $skill_name${NC}"
         ((PASSED++))
     fi
+done
+done
+
+# Variant pattern validation (skills 20 in skills/vi/, skill 22 in modules/personal-branding/vi/)
+echo ""
+echo "Checking variant patterns..."
+# Skill 20 client-intake (skills/vi/)
+if [ -d "skills/vi/20-brief-client-intake/variants" ]; then
+  variant_count=$(ls skills/vi/20-brief-client-intake/variants/*.md 2>/dev/null | wc -l)
+  if [ "$variant_count" -ge 3 ]; then
+    echo -e "${GREEN}PASS${NC} 20-brief-client-intake: $variant_count variants found"
+  else
+    echo -e "${YELLOW}WARN${NC} 20-brief-client-intake: only $variant_count variants (expected >=3)"
+  fi
+fi
+# Skill 22 personal-brand-context (modules/personal-branding/vi/)
+if [ -d "modules/personal-branding/vi/22-personal-brand-context/variants" ]; then
+  variant_count=$(ls modules/personal-branding/vi/22-personal-brand-context/variants/*.md 2>/dev/null | wc -l)
+  if [ "$variant_count" -ge 3 ]; then
+    echo -e "${GREEN}PASS${NC} 22-personal-brand-context: $variant_count variants found"
+  else
+    echo -e "${YELLOW}WARN${NC} 22-personal-brand-context: only $variant_count variants (expected >=3)"
+  fi
+fi
+
+# Skill 22 specific: check 01-founder, 02-coach, 03-creator
+if [ -d "modules/personal-branding/vi/22-personal-brand-context/variants" ]; then
+  for variant in "01-founder.md" "02-coach.md" "03-creator.md"; do
+    if [ -f "modules/personal-branding/vi/22-personal-brand-context/variants/$variant" ]; then
+      echo -e "${GREEN}PASS${NC} skill-22 variant: $variant"
+    else
+      echo -e "${RED}FAIL${NC} skill-22 variant missing: $variant"
+    fi
+  done
+fi
+
+# Variant pattern validation for global cluster
+echo ""
+echo "Checking global variant patterns..."
+
+# Foundation
+if [ -d "skills/en/product-marketing-context-global/variants" ]; then
+  count=$(ls skills/en/product-marketing-context-global/variants/*.md 2>/dev/null | wc -l)
+  if [ "$count" -ge 4 ]; then
+    echo -e "${GREEN}PASS${NC} foundation-global: $count variants"
+  else
+    echo -e "${YELLOW}WARN${NC} foundation-global: only $count variants"
+  fi
+fi
+
+# Skill 22 PB foundation
+if [ -d "modules/personal-branding/en/22-personal-brand-context-global/variants" ]; then
+  count=$(ls modules/personal-branding/en/22-personal-brand-context-global/variants/*.md 2>/dev/null | wc -l)
+  if [ "$count" -ge 4 ]; then
+    echo -e "${GREEN}PASS${NC} skill-22-global: $count variants"
+  else
+    echo -e "${YELLOW}WARN${NC} skill-22-global: only $count variants"
+  fi
+fi
+
+# Skills with variants: marketing (skills/en/) + PB (modules/personal-branding/en/)
+# Marketing variants
+for skill in "03-performance-eval-global" "10-reverse-kpi-global" "11-channel-setup-global" "14-email-marketing-global" "17-pricing-strategy-global" "18-referral-program-global" "21-ads-audit-global"; do
+  if [ -d "skills/en/$skill/variants" ]; then
+    count=$(ls skills/en/$skill/variants/*.md 2>/dev/null | wc -l)
+    if [ "$count" -ge 4 ]; then
+      echo -e "${GREEN}PASS${NC} $skill: $count variants"
+    fi
+  fi
+done
+
+# Personal Branding variants (skills 24, 27 in modules/personal-branding/en/)
+for skill in "24-ai-avatar-production-global" "27-personal-brand-monetize-global"; do
+  if [ -d "modules/personal-branding/en/$skill/variants" ]; then
+    count=$(ls modules/personal-branding/en/$skill/variants/*.md 2>/dev/null | wc -l)
+    if [ "$count" -ge 4 ]; then
+      echo -e "${GREEN}PASS${NC} $skill: $count variants"
+    fi
+  fi
+done
+
+# Required region variants check (US/EU/SEA/LATAM) — marketing
+for skill in "product-marketing-context-global" "03-performance-eval-global" "10-reverse-kpi-global" "11-channel-setup-global" "14-email-marketing-global" "17-pricing-strategy-global" "18-referral-program-global" "21-ads-audit-global"; do
+  if [ -d "skills/en/$skill/variants" ]; then
+    for variant in "01-us.md" "02-eu.md" "03-sea.md" "04-latam.md"; do
+      if [ ! -f "skills/en/$skill/variants/$variant" ]; then
+        echo -e "${RED}FAIL${NC} $skill missing variant: $variant"
+      fi
+    done
+  fi
+done
+
+# Required region variants check — PB (in modules/personal-branding/en/)
+for skill in "22-personal-brand-context-global" "24-ai-avatar-production-global" "27-personal-brand-monetize-global"; do
+  if [ -d "modules/personal-branding/en/$skill/variants" ]; then
+    for variant in "01-us.md" "02-eu.md" "03-sea.md" "04-latam.md"; do
+      if [ ! -f "modules/personal-branding/en/$skill/variants/$variant" ]; then
+        echo -e "${RED}FAIL${NC} $skill missing variant: $variant"
+      fi
+    done
+  fi
 done
 
 echo ""
