@@ -6,7 +6,7 @@
 
 Repo nay chua **Agent Skills** theo [Agent Skills Specification](https://agentskills.io) — cai dat duoc vao `.agents/skills/` (hoac `.claude/skills/` voi Claude Code).
 
-Repo cung hoat dong nhu **Claude Code Plugin Marketplace** — cai dat bang `/plugin install minhnv0807/fullstack-mkt-skills`.
+Repo cung hoat dong nhu **Claude Code Plugin Marketplace** — cai dat bang `/plugin install minhnv0807/ai-business-skills`.
 
 ## Cau truc repo
 
@@ -86,17 +86,93 @@ File `.agents/product-marketing-context.md` chua:
 
 Skill khac kiem tra file nay truoc — neu co, lay thong tin san; neu khong, de xuat tao.
 
+## Pattern variants (Skill 20 + Skill 22)
+
+Skills su dung pattern variants:
+- `20-brief-client-intake` — 20 variants theo nganh hang
+- `22-personal-brand-context` — 3 variants theo nhom audience (founder/coach/creator)
+
+Cau truc:
+
+```
+modules/personal-branding/vi/22-personal-brand-context/
+├── SKILL.md          ← Entrypoint + router
+├── README.md         ← Variant guide (decision tree)
+└── variants/
+    ├── 01-founder.md
+    ├── 02-coach.md
+    └── 03-creator.md
+```
+
+User chay skill chinh, skill load README → user chon variant → skill load variant template.
+
+### Pattern variants — Skill 22 Global (NEW)
+
+Skill 22-personal-brand-context-global uses 4 REGION variants (US/EU/SEA/LATAM) instead of 3 audience variants like VN.
+
+Cau truc:
+
+```
+modules/personal-branding/en/22-personal-brand-context-global/
+├── SKILL.md          ← Entrypoint + router
+├── README.md         ← Region variant guide
+└── variants/
+    ├── 01-us.md      ← Covers founder + coach + creator (US)
+    ├── 02-eu.md      ← Covers founder + coach + creator (EU)
+    ├── 03-sea.md     ← Covers founder + coach + creator (SEA)
+    └── 04-latam.md   ← Covers founder + coach + creator (LATAM)
+```
+
+Difference from VN skill 22:
+- VN: 3 audience variants (founder/coach/creator separately)
+- Global: 4 region variants (each contains 3 audience inside)
+- Reason: persona universal but currency/platforms/regulations differ per region
+
+## Pattern Mode-Switching (Skills 04, 05)
+
+Skill 04, 05 dung pattern context-aware mode:
+- Doc 1 hoac nhieu file `.agents/*.md`
+- Auto-detect mode dua tren context file ton tai
+- Output adapt theo mode
+
+Pattern dieu kien:
+1. Read both context files (skill checks existence)
+2. If only A → Mode A
+3. If only B → Mode B
+4. If both → Skill ASKS user
+5. If neither → Skill SUGGESTS creating context first
+
+## Pattern: Cluster Auto-Detect Mode (v2.5.0+)
+
+Pattern used in v2.5.0 to handle 2 clusters (VN + Global) in same agents:
+
+```
+Agent reads `.agents/`:
+- `product-marketing-context.md` → MODE VN
+- `product-marketing-context-global.md` → MODE GLOBAL
+- Both → ASK 1 question
+- None → SUGGEST creating context
+```
+
+Same pattern for personal brand:
+- `personal-brand-context.md` → MODE VN PB
+- `personal-brand-context-global.md` → MODE GLOBAL PB
+
+This pattern allows ONE agent to serve BOTH clusters without code duplication.
+
+Used by: 5 agents (mkt-strategist, content-producer, performance-analyst, channel-operator, personal-brand-builder).
+
 ## Cai dat
 
 ### Claude Code (khuyen dung)
 
 ```bash
 # Plugin marketplace
-/plugin install minhnv0807/fullstack-mkt-skills
+/plugin install minhnv0807/ai-business-skills
 
 # Hoac clone + install script
-git clone https://github.com/minhnv0807/fullstack-mkt-skills.git
-cd fullstack-mkt-skills
+git clone https://github.com/minhnv0807/ai-business-skills.git
+cd ai-business-skills
 ./install.sh --global
 ```
 
